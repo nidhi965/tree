@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int func(int &dia,TreeNode*root){
+        if(root==NULL)
+            return 0 ;
+        int lh=func(dia,root->left);
+        int rh=func(dia,root->right);
+        dia=max(dia,lh+rh);
+        return 1+max(lh,rh);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int dia=0;
+         func(dia,root);
+        return dia;
+        
+    }
+};
