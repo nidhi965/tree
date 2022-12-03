@@ -1,0 +1,24 @@
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+      map<int,int>mp;
+        for(int i=0;i<inorder.size();i++){
+            mp[inorder[i]]=i;
+        }
+        int n=postorder.size()-1;
+        TreeNode*root=formtree(postorder,n,inorder,0,inorder.size()-1,mp);
+        return root;
+    }
+    TreeNode* formtree(vector<int>&preorder,int &idx,vector<int>&inorder,int inst,int inen,map<int,int>&mp){
+        if(idx<0 || inst>inen)
+            return NULL;
+        int ele=preorder[idx--];
+        TreeNode*root=new TreeNode(ele);
+        int pos=mp[ele];
+
+        root->right=formtree(preorder,idx,inorder,pos+1,inen,mp);
+        root->left=formtree(preorder,idx,inorder,inst,pos-1,mp);
+        return root;
+          
+    }
+};
